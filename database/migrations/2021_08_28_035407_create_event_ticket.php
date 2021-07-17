@@ -13,12 +13,12 @@ class CreateEventTicket extends Migration
      */
     public function up()
     {
-        Schema::create('event_ticket', function (Blueprint $table) {
-            $table->id()->unique();
+        Schema::create('events', function (Blueprint $table) {
+            $table->id();
             $table->string('nombre_evento');
             $table->string('precio');
             $table->integer('cantidad');
-            $table->string('categoria');
+            $table->foreignId('categories_id')->constrained();
             $table->string('imagen');
             $table->string('descripcion');
             $table->string('lugar');
@@ -37,6 +37,6 @@ class CreateEventTicket extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('event_ticket');
+        Schema::dropIfExists('events');
     }
 }

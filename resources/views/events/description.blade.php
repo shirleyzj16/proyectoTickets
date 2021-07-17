@@ -37,17 +37,33 @@
         <!-- Description -->
         <section class="description-section">
             <div class="row">
+           
+
                 <div class="col-sm">
                     <div class="description-bg">
-                        <img src="../imgs/concierto.jpg" alt="concierto" style="width: 100%">
+                        <img src="{{ asset('storage/imgs/'.$event->imagen) }}" alt="event image" style="width: 100%">
                         <p class="description-title">Descripción</p>
+                        
+                        
+                        
                         <p class="description-text">{{ $event->descripcion }}</p>
+
+                      
                     </div>
                 </div>
                 <div class="col-sm">
                     <div class="row">
                         <div class="description-bg">
-                            <p class="description-title">Concierto</p>
+                    
+
+                        @foreach ($category as $categories)
+                        
+                        @if($categories->id==$event->categories_id)
+
+                                <p class="description-title">{{ $categories->name}}</p>
+                         @endif
+                        @endforeach
+
                             <p class="ticket-title">{{ $event->nombre_evento }}</p>
                             <p class="card-text">{{ $event->fecha }}, {{ $event->hora }}</p>
                             <P class="card-text">{{ $event->lugar }}</P>
@@ -58,31 +74,22 @@
                         <div class="description-bg">
                             <p class="description-title">Relacionados</p>
                             <div class="row">
-                                <div class="col-sm">
-                                    <div class="card" style="max-width: 150px;">
-                                        <img src="../imgs/teatro.jpg" alt="teatro" style="width: 100%">
-                                        <h2 style="font-size: 1em;">Lorem Ipsum</h2>
-                                        <a class="card-button" href="{{ url('description') }}">Ticket</a>
+                            @foreach($eventsTems as $eventsTem)
+
+                                    <div class="col-sm">
+                                        <div class="card" style="max-width: 150px;">
+                                            <img src="{{ asset('storage/imgs/'.$eventsTem->imagen) }}" alt="event image" style="width: 100%">
+                                            <h2 style="font-size: 1em;">{{ $eventsTem->nombre_evento }}</h2>
+                                            <a class="card-button" href="{{ route('description.show',$eventsTem->id)}}">Ticket</a>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-sm">
-                                    <div class="card" style="max-width: 150px;">
-                                        <img src="../imgs/deporte.jpg" alt="deporte" style="width: 100%">
-                                        <h2 style="font-size: 1em;">Lorem Ipsum</h2>
-                                        <a class="card-button" href="{{ url('description') }}">Ticket</a>
-                                    </div>
-                                </div>
-                                <div class="col-sm">
-                                    <div class="card" style="max-width: 150px;">
-                                        <img src="../imgs/deporte.jpg" alt="deporte" style="width: 100%">
-                                        <h2 style="font-size: 1em;">Lorem Ipsum</h2>
-                                        <a class="card-button" href="{{ url('description') }}">Ticket</a>
-                                    </div>
-                                </div>
+
+                            @endforeach
                             </div>
                         </div>
                     </div>
                 </div>
+           
             </div>
         </section>
         <!-- Description -->

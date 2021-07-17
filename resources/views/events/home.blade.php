@@ -61,13 +61,13 @@
                     </select>
                 </div>
                 <div class="col-sm select-section">
-                    <select class="select-cb"> 
-                        <option class="select-option" disabled selected>Categoria</option>
-                        <option class="select-option">Todos</option>
-                        <option class="select-option" value="concierto">Conciertos</option>
-                        <option class="select-option" value="teatro">Teatro</option>
-                        <option class="select-option" value="deportes">Deportes</option>
-                        <option class="select-option" value="familiar">Familiar</option>
+                    <strong>Categoria:</strong>
+                    <select name="categories_id" class="select-cb"> 
+                        @foreach ($categories->all() as $category)
+                            <option value="{{ $category->id }}">
+                                {{ $category->name }}
+                            </option>
+                        @endforeach
                     </select>
                 </div>
             </div>
@@ -82,9 +82,13 @@
                 
                     <div class="card">
                         
-                        <img src="/imgs/concierto.jpg" alt="concierto" style="width: 100%">
+                        <img src="{{ asset('storage/imgs/'.$event->imagen) }}" alt="event image" style="width: 100%">
                         <h2>{{ $event->nombre_evento }}</h2>
-                        <p class="category-text">{{ $event->categoria }}</p>
+                        @foreach ($categories as $category)
+                            @if($category->id==$event->categories_id)
+                            <p class="category-text">{{ $category->name }}</p>
+                            @endif
+                        @endforeach
                         <p class="card-text">Lugar: {{ $event->lugar }}</p>
                         <p class="card-text">Fecha: {{ $event->fecha }} {{ $event->hora }}</p>
                         <a class="card-button" href="{{ route('description.show',$event->id)}}">Ticket</a>
@@ -117,4 +121,5 @@
 
     </div>
 </body>
+
 </html>
