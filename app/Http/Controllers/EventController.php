@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Event;
+use App\Models\Client;
 use Illuminate\Http\Request;
 
 class EventController extends Controller
@@ -22,10 +23,22 @@ class EventController extends Controller
         return view('events.home', compact('events'), compact('categories'));
     }
 
-    public function register()
+    public function filter($id)
     {
         //
-        return view('events.register');
+        $categories = Category::all();
+        $events = Event::where('categories_id', $id)->get();
+
+        return view('events.home', compact('events'), compact('categories'));
+    }
+
+    public function register($id)
+    {
+        //
+        $event = Event::find($id);
+        $category = Category::all();
+
+        return view('events.register', compact('event','category'));
     }
 
     public function confirm()
@@ -34,10 +47,14 @@ class EventController extends Controller
         return view('events.confirm');
     }
 
-    public function info_register()
+    
+    
+    public function info_register($precioTotal , $cantidadTickets, $id)
     {
         //
-        return view('events.info');
+        
+
+        return view('events.info' , compact('precioTotal', 'cantidadTickets', 'id'));
     }
 
     /**
@@ -59,9 +76,26 @@ class EventController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'nombre_completo' => 'required',
+            'numero_telefono' => 'required',
+            'correo' => 'required|email',
+            'cantidad' => 'required',
+            'precio_total' => 'required',
+            'event_id' => 'required',
+        ]);
+     
+        Client::create($request->all());
 
+        $event = Event::find($request->event_id);
 
+        $event->update([
+            'cantidad' => $event->cantidad - $request->cantidad,
+        ]);
+        
+        $category = Category::find($event->categories_id);
 
+        return view('events.confirm', compact('event','request','category'));
     }
 
     /**

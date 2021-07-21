@@ -19,14 +19,14 @@ class CreateEventTicket extends Migration
             $table->string('precio');
             $table->integer('cantidad');
             $table->foreignId('categories_id')->constrained();
-            $table->string('imagen');
+            $table->text('imagen');
             $table->string('descripcion');
             $table->string('lugar');
             $table->date('fecha');
             $table->time('hora');
             $table->string('tipo');
             $table->string('publico');
-            $table->timestamp('failed_at')->useCurrent();
+            $table->timestamps();
         });
     }
 

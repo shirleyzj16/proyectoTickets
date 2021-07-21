@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Raleway:wght@100;300;500&display=swap" rel="stylesheet">
     <!-- Main stylesheet -->
-    <link rel="stylesheet" href="./css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ URL::asset('css/style.css') }}" rel="stylesheet">
 </head>
 <body>
 
@@ -26,9 +26,6 @@
                     <div class="col top-logo">
                         <a class="logo" href="{{ url('') }}">TicketCalidad</a>
                     </div>
-                    <div class="col top-login">
-                        <a class="logo" href="{{ url('login') }}"><i class="far fa-user-circle"></i></a>
-                    </div>
                 </div>
             </nav>
         </header>
@@ -39,34 +36,17 @@
             <div class="row select-bg">
                 <div class="col-sm">
                     <div>
-                        <p class="select-text">Adulto</p>
+                        <p class="select-text">{{ $event-> publico}}</p>
                     </div>
                 </div>
                 <div class="col-sm">
                     <div>
-                        <p class="select-text">$ 00.00</p>
+                    <p>$ <input  id="precio" class="select-text" value="{{ $event->precio}}" disabled></input></p>
                     </div>
                 </div>
                 <div class="col-sm">
                     <div>
-                        <p class="select-text"><span><button type="button" class="select-btn" href="#">+</button></span>00<span><button type="button" class="select-btn">-</button></span></p>
-                    </div>
-                </div>
-            </div>
-            <div class="row select-bg">
-                <div class="col-sm">
-                    <div>
-                        <p class="select-text">Niño</p>
-                    </div>
-                </div>
-                <div class="col-sm">
-                    <div>
-                        <p class="select-text">$ 00.00</p>
-                    </div>
-                </div>
-                <div class="col-sm">
-                    <div>
-                        <p class="select-text"><span><button type="button" class="select-btn" href="#">+</button></span>00<span><button type="button" class="select-btn">-</button></span></p>
+                        <input type="number" min="1" max="{{ $event->cantidad }}" class="form-control" id="cantidad-tickets" oninput="setTotal()" placeholder="0" required >
                     </div>
                 </div>
             </div>
@@ -75,9 +55,12 @@
 
         <!-- Total -->
         <section class="total-section">
-            <p class="total-title">Total: <span class="total-text">$ 00.00</span></p>
-            <a class="card-button" href="{{ url('info') }}">Siguiente</a>
+            <p class="total-title">Total: $ <input disabled type="number" id="precio-total" class="total-text" value="0" > </input></p> 
+            <a class="card-button" id="boton-registro" onclick="redirectInfo({{ $event->id }})" style="pointer-events: none">Siguiente </a>
+            <br></br>
+            <spam  class="total-text" id="formError"></soam>
         </section>
+        
         <!-- Total -->
 
         <!-- Footer -->
@@ -99,6 +82,6 @@
         <!-- Footer -->
 
     </div>
-
+    <script src="{{ URL::asset('js/main.js') }}" type="text/javascript"></script>
 </body>
 </html>

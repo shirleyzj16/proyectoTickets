@@ -8,12 +8,14 @@
     <title>TicketCalidad</title>
     <!-- Bootstrap link/version -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <!-- libreria para el buscador -->
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
     <!-- Google fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Raleway:wght@100;300;500&display=swap" rel="stylesheet">
     <!-- Main stylesheet -->
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/style.css') }}">
 </head>
 <body>
 
@@ -31,45 +33,52 @@
                     </div>
                 </div>
             </nav>
+
+            <!-- Barra de busqueda -->
+
             <section class="img-header">
-                <fieldset class="search-field">
-                    <input class="search-input" type="text" placeholder="Buscar...">
-                    <buttom class="search-btn" type="submit">
-                        <i class="fas fa-search"></i>
-                    </buttom>
-                </fieldset>
                 
-                
+                    <fieldset class="search-field">
+                        <input class="search-input" type="text" id="buscadorInput" onkeyup="buscadorFunction()" placeholder="Buscar...">  
+                        <div id="buscadorList" class="buscador-content">
+
+                            @foreach($events as $event)
+
+                            <a href="{{ route('description.show',$event->id)}}">{{ $event->nombre_evento }}</a> 
+
+                            @endforeach
+
+                        </div>
+                    
+                    </fieldset>
             </section>
+
+            <!-- Barra de busqueda -->
+
         </header>
         <!-- Header -->
         
         <!-- Select -->
         <section>
             <div class="row">
+
+            
+         
                 <div class="col-sm select-section">
-                    <select class="select-cb">
-                        <option class="select-option" disabled selected>Lugar</option>
-                        <option class="select-option">Todos</option>
-                        <option class="select-option">San José</option>
-                        <option class="select-option">Alajuela</option>
-                        <option class="select-option">Puntarenas</option>
-                        <option class="select-option">Limón</option>
-                        <option class="select-option">Guanacaste</option>
-                        <option class="select-option">Heredia</option>
-                        <option class="select-option">Cartago</option>
-                    </select>
-                </div>
-                <div class="col-sm select-section">
-                    <strong>Categoria:</strong>
-                    <select name="categories_id" class="select-cb"> 
+
+                
+                    <strong class="card-text">Categoria:</strong>
+                    <select id="categories" name="categories_id" class="select-cb"> 
+                            <option value="">select category</option>
                         @foreach ($categories->all() as $category)
                             <option value="{{ $category->id }}">
                                 {{ $category->name }}
                             </option>
                         @endforeach
                     </select>
+
                 </div>
+            
             </div>
         </section>
         <!-- Select -->
@@ -78,7 +87,7 @@
         <section class="ticket-section">
             <div class="row">
                 @foreach($events as $event)
-                <div class="col-6 col-sm-4" style="margin-top: 05em">
+                <div class="col-12 col-sm-4" style="margin-top: 05em">
                 
                     <div class="card">
                         
@@ -120,6 +129,12 @@
         <!-- Footer -->
 
     </div>
+
+    
+    <script src="{{ URL::asset('js/main.js') }}" type="text/javascript"></script>
+
 </body>
+
+
 
 </html>

@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Raleway:wght@100;300;500&display=swap" rel="stylesheet">
     <!-- Main stylesheet -->
-    <link rel="stylesheet" href="./css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ URL::asset('css/style.css') }}" rel="stylesheet">
 </head>
 <body>
 
@@ -26,9 +26,6 @@
                     <div class="col top-logo">
                         <a class="logo" href="{{ url('') }}">TicketCalidad</a>
                     </div>
-                    <div class="col top-login">
-                        <a class="logo" href="{{ url('login') }}"><i class="far fa-user-circle"></i></a>
-                    </div>
                 </div>
             </nav>
         </header>
@@ -36,13 +33,29 @@
 
         <!-- Info -->
         <section>
-            <div class="info-container">
+     
+        
+        <form action="{{ url('confirm')}}">
+        <div class="info-container">
+           
+
+        @if (count($errors) > 0)
+    <div class="alert alert-danger">
+    	<p>Corrige los siguientes errores:</p>
+        <ul>
+            @foreach ($errors->all() as $message)
+                <li>{{ $message }}</li>
+            @endforeach
+        </ul>
+    </div>
+        @endif
+
                 <div class="row" style="padding-top: 5em;">
                     <div class="col-sm">
                         <label class="info-title" for="firstname">Nombre completo</label>
                     </div>
                     <div class="col-sm">
-                        <input class="info-input" type="text" name="firstname" id="firstname">
+                        <input value="" class="info-input" type="text" name="nombre_completo" id="nombre_completo">
                     </div>
                 </div>
                 <div class="row">
@@ -50,7 +63,7 @@
                         <label class="info-title" for="phone">Número de teléfono</label>
                     </div>
                     <div class="col-sm">
-                        <input class="info-input" type="text" name="phone" id="phone">
+                        <input class="info-input" type="text" name="numero_telefono" id="numero_telefono">   
                     </div>
                 </div>
                 <div class="row">
@@ -58,13 +71,28 @@
                         <label class="info-title" for="email">Correo</label>
                     </div>
                     <div class="col-sm">
-                        <input class="info-input" type="text" name="email" id="email"> 
+                        <input class="info-input" type="text" name="correo" id="correo"> 
                     </div>
+
                 </div>
-                <div class="row info-m">
-                    <a class="card-button" href="{{ url('confirm') }}">Siguiente</a>
+
+                <div style="display: none">
+                    
+                    <input class="info-input" type="text" value="{{ $cantidadTickets }}" name="cantidad" id="cantidad">
+                    <input class="info-input" type="text" value="{{ $precioTotal }}" name="precio_total" id="precio_total">
+                    <input class="info-input" type="text" value="{{ $id }}" name="event_id" id="event_id">
+
                 </div>
-            </div>
+              
+                <div  class="row info-m">
+
+                    <button type="submit" class="card-button" onclick="setError()" >Siguiente</button>
+                    
+                </div>
+          
+                </div>
+        </form>
+          
         </section>
         <!-- Info -->
 
@@ -87,5 +115,6 @@
         <!-- Footer -->
 
     </div>
+    <script src="{{ URL::asset('js/main.js') }}" type="text/javascript"></script>
 </body>
 </html>

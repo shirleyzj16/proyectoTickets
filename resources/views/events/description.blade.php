@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Raleway:wght@100;300;500&display=swap" rel="stylesheet">
     <!-- Main stylesheet -->
-    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/style.css') }}">
 </head>
 <body>
 
@@ -25,9 +25,6 @@
                 <div class="row">
                     <div class="col top-logo">
                         <a class="logo" href="{{ url('') }}">TicketCalidad</a>
-                    </div>
-                    <div class="col top-login">
-                        <a class="logo" href="{{ url('login') }}"><i class="far fa-user-circle"></i></a>
                     </div>
                 </div>
             </nav>
@@ -67,7 +64,8 @@
                             <p class="ticket-title">{{ $event->nombre_evento }}</p>
                             <p class="card-text">{{ $event->fecha }}, {{ $event->hora }}</p>
                             <P class="card-text">{{ $event->lugar }}</P>
-                            <a class="card-button" href="{{ url('register') }}">Registrar</a>
+                            <a class="card-button" href="{{ url('register',$event->id) }}">Registrar</a>
+                           
                         </div>
                     </div>
                     <div class="row">
@@ -89,7 +87,6 @@
                         </div>
                     </div>
                 </div>
-           
             </div>
         </section>
         <!-- Description -->

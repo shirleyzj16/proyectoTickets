@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Raleway:wght@100;300;500&display=swap" rel="stylesheet">
     <!-- Main stylesheet -->
-    <link rel="stylesheet" href="./css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ URL::asset('css/style.css') }}" rel="stylesheet">
 </head>
 <body>
 
@@ -26,9 +26,6 @@
                     <div class="col top-logo">
                         <a class="logo" href="{{ url('') }}">TicketCalidad</a>
                     </div>
-                    <div class="col top-login">
-                        <a class="logo" href="{{ url('login') }}"><i class="far fa-user-circle"></i></a>
-                    </div>
                 </div>
             </nav>
         </header>
@@ -39,18 +36,18 @@
             <div class="info-container">
                 <div class="row">
                     <div class="col-sm">
-                        <img src="./imgs/concierto.jpg" alt="concierto" style="width: 100%">
-                        <h2>Lorem Ipsum</h2>
-                        <p class="category-text">Conciertos</p>
-                        <p class="card-text">Lugar: San José</p>
-                        <p class="card-text" style="margin-bottom: 1.5em;">Fecha: 18/05/2021 10:30 PM</p>
+                        <img src="{{ asset('storage/imgs/'.$event->imagen) }}" alt="event image" style="width: 100%">
+                        <h2>{{ $event->nombre_evento }}</h2>
+                        <p class="category-text">{{ $category -> name}}</p>
+                        <p class="card-text">{{ $event->lugar }}</p>
+                        <p class="card-text" style="margin-bottom: 1.5em;">{{ $event->fecha}} {{ $event->hora}} </p>
                     </div>
                     <div class="col-sm" style="padding-top: 8em;">
-                        <p class="select-text">1 Adulto <span>$ 00.00</span></p>
-                        <p class="select-text">2 Niño <span>$ 00.00</span></p>
+                    <h2>Nombre de Comprador: {{ $request->nombre_completo }}</h2>
+                    <p>Tikets Comprados: {{ $request->cantidad }}</p>
                         <p class="total-title" style="margin: 2em;">Total: <hr></p>
                         <p class="total-text">
-                            $ 00.00</p>
+                        $ {{ $request->precio_total }}</p>
                     </div>
                 </div>
                 <div class="row info-m">
